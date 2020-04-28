@@ -9,6 +9,7 @@ TagManager:
   - Camera
   - Wall
   - Goal
+  - Coin
   layers:
   - Default
   - TransparentFX

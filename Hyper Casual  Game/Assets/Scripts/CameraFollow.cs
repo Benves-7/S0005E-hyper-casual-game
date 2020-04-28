@@ -8,6 +8,10 @@ public class CameraFollow : MonoBehaviour
     public float smoothSpeed = 10f;
     public Vector3 offset;
 
+    private void Awake()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     private void LateUpdate()
     {

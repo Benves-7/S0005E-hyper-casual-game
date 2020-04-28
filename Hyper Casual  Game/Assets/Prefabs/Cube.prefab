@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 8878437490313734962}
   - component: {fileID: 8878437490313734961}
   - component: {fileID: 8878437490313734960}
-  - component: {fileID: 8878437490313734964}
   - component: {fileID: 8878437490313734965}
+  - component: {fileID: 2276307711409409556}
+  - component: {fileID: 7231310866577576550}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Player
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8878437490313734975}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.344627, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -94,7 +95,50 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &8878437490313734964
+--- !u!114 &8878437490313734965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878437490313734975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c12278745c62b4782a220d456cd053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDirection: {x: 0, y: 0, z: 0}
+  JumpForce: 3
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 1.5
+  slideMultiplier: 1.25
+  MoveSpeed: 7.5
+  onWall: 0
+  wallJump: 0
+  leftSide: 0
+  stop: 0
+  state: 0
+  points: 0
+  current_tag: 
+--- !u!143 &2276307711409409556
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8878437490313734975}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &7231310866577576550
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,26 +153,4 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!114 &8878437490313734965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8878437490313734975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38c12278745c62b4782a220d456cd053, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveDirection: {x: 0, y: 0, z: 0}
-  JumpForce: 4
-  fallMultiplier: 2.5
-  lowJumpMultiplier: 2
-  test: 0
-  MoveSpeed: 10
-  onWall: 0
-  slideMultiplier: 1
-  isDead: 0
-  finished: 0
+  m_CollisionDetection: 3
