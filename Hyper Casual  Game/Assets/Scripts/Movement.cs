@@ -33,10 +33,10 @@ public class Movement : MonoBehaviour
 
     // References.
     private CharacterController controller;
+    private MovingPlatform platform;
     private GameObject cam;
-    private Map map;
-    private Collider coll;
     private RaycastHit hit;
+    public MapLoader ml;
 
 
     // Debug.DrawRay(transform.position, Vector3.down * 0.35f, Color.black);
@@ -45,41 +45,39 @@ public class Movement : MonoBehaviour
     void Awake()
     {
         moveDirection = new Vector3(0, 0, 0);
-
         controller = GetComponent<CharacterController>();
         cam = GameObject.FindGameObjectWithTag("Camera");
-        map = GameObject.FindGameObjectWithTag("Map").GetComponent<Map>();
-        coll = GetComponent<Collider>();
+        ml = GameObject.FindObjectOfType<MapLoader>().GetComponent<MapLoader>();
     }
     // Endscreen
     void EndScreen(int state)
     {
         cam.SetActive(false);
-        map.stop = true;
-        MovingPlatform[] mpArray = map.GetComponentsInChildren<MovingPlatform>();
-        foreach (var mp in mpArray)
-        {
-            mp.stop = true;
-        }
+        ml.Stop();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if Alive..
+        // If Alive..
         if (!stop)
         {
-            // raycast to find surface and check if surface is goal.
+            // Raycast to find surface and check if surface is goal.
             if(Physics.Raycast(transform.position, Vector3.down, out hit, 0.35f))
             {
+                platform = hit.collider.GetComponent<MovingPlatform>();
                 if (hit.collider.tag == "Goal")
                 {
                     state = 1;
                     stop = true;
                 }
             }
+            else
+            {
+                platform = null;
+            }
 
-            // raycast to find surface and check if wall.
+            // Raycast to find surface and check if wall.
             if ((Physics.Raycast(transform.position, Vector3.left, out hit, 0.4f) || Physics.Raycast(transform.position, Vector3.right, out hit, 0.4f)) && hit.collider.tag == "Wall")
             {
                 onWall = true;
@@ -91,6 +89,19 @@ public class Movement : MonoBehaviour
 
             // Movement
             moveDirection.x = Input.GetAxis("Horizontal") * MoveSpeed;
+
+            // Move with the platform.
+            if (platform)
+            {
+                if (platform.goingRight)
+                {
+                    moveDirection.x += platform.speedX;
+                }
+                else
+                {
+                    moveDirection.x -= platform.speedX;
+                }
+            }
 
             // Jump
             if (Input.GetButtonDown("Jump") && (controller.isGrounded || (onWall && wallJump)))
@@ -136,7 +147,7 @@ public class Movement : MonoBehaviour
                 }
 
                 // Check if falling of map.
-                if (transform.position.y < -1)
+                if (transform.position.y < -0.5f)
                 {
                     state = 0;
                     stop = true;

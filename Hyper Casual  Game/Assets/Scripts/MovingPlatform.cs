@@ -25,7 +25,9 @@ public class MovingPlatform : MonoBehaviour
     private void Start()
     {
         maxZ = transform.localPosition.z + maxZ;
-        minZ = transform.localPosition.z + minZ;
+        minZ = transform.localPosition.z - minZ;
+        maxX = transform.localPosition.x + maxX;
+        minX = transform.localPosition.x - minX;
     }
 
     private void Update()
