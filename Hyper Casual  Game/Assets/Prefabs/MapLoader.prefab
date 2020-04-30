@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1450862245893316459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1450862245893316456}
+  - component: {fileID: 1450862245893316457}
+  m_Layer: 0
+  m_Name: MapLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1450862245893316456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450862245893316459}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1450862245893316457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450862245893316459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73493d4ce51ba654ea60ecabe20e923b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startSegment: {fileID: 5945642533173202932, guid: 161a46e614a66654f84203f6fd204226,
+    type: 3}
+  loadedSegments: []
+  segments:
+  - {fileID: 8665857834082517289, guid: bb97e3bf5a975f542912bb13a5ca4f58, type: 3}
+  - {fileID: 3284278957940512114, guid: e9c98bb75ffb9e14fbdfac90ff2aa4f8, type: 3}
+  - {fileID: 3011471479647623869, guid: d4f473ed35ca60e448b21cd17f4fce2e, type: 3}
+  - {fileID: 4774861480761269832, guid: 2bbc936f8dd627347a5601dce664891a, type: 3}
+  - {fileID: 8091985674070455793, guid: 9e361ebcfcd58554584f6229e2120ddd, type: 3}
+  - {fileID: 1324507499610698204, guid: 75ccfb2cdb487a0449f9485ee4fa1e1b, type: 3}
+  - {fileID: 2888275569880780909, guid: 080618c1cdedbbe46b35d78d40476010, type: 3}
+  - {fileID: 6404913938178818071, guid: 6735a3f2bbe68fa448c3a581f594545e, type: 3}
+  lastSpawned: {fileID: 0}

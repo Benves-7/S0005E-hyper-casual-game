@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    public float testVariable1;
-    public float testVariable2;
-    public bool testVariable3;
-
     public float speedX;
     public float speedZ;
 
@@ -32,10 +28,6 @@ public class MovingPlatform : MonoBehaviour
 
     private void Update()
     {
-        testVariable1 = transform.localPosition.z;
-        testVariable2 = transform.localPosition.x;
-        testVariable3 = transform.localPosition.z >= maxZ;
-
         if (!stop)
         {
             if (goingRight)

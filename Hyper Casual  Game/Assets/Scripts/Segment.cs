@@ -22,9 +22,4 @@ public class Segment : MonoBehaviour
             transform.Translate(Vector3.forward * -speed * Time.deltaTime);
         }
     }
-
-    void FixedUpdate()
-    {
-
-    }
 }

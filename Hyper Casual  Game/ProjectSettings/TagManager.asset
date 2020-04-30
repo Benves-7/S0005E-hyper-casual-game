@@ -11,6 +11,7 @@ TagManager:
   - Goal
   - Coin
   - Segment
+  - SegWall
   layers:
   - Default
   - TransparentFX

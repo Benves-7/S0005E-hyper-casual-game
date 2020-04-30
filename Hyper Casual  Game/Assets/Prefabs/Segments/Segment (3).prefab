@@ -212,8 +212,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4116015880878406165}
   - {fileID: 6150531378149838356}
+  - {fileID: 4116015880878406165}
   - {fileID: 6717794438488626750}
   - {fileID: 6436798294540322315}
   - {fileID: 3365872433372533322}
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 6097176853521150239}
   m_Layer: 0
   m_Name: Wall (2)
-  m_TagString: Untagged
+  m_TagString: SegWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -369,7 +369,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 6, z: 20}
   m_Children: []
   m_Father: {fileID: 1949715019535784061}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5376789781178125442
 MeshFilter:
@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 6777569842616199658}
   m_Layer: 0
   m_Name: Wall (1)
-  m_TagString: Untagged
+  m_TagString: SegWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -461,7 +461,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 6, z: 20}
   m_Children: []
   m_Father: {fileID: 1949715019535784061}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4230089838484262697
 MeshFilter:
