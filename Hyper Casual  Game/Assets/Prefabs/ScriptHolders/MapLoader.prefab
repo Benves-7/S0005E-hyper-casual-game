@@ -43,7 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73493d4ce51ba654ea60ecabe20e923b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mode: 0
   startSegment: {fileID: 5945642533173202932, guid: 161a46e614a66654f84203f6fd204226,
+    type: 3}
+  testSegment: {fileID: 5170872463494886769, guid: 7998533637a410f43902a1ded7477612,
+    type: 3}
+  tutorialSegment: {fileID: 3904950276936901136, guid: 2ed6bbc7478321046b8f1e16bea83a71,
     type: 3}
   loadedSegments: []
   segments:

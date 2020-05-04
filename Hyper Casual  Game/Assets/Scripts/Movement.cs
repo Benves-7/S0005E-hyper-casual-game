@@ -59,11 +59,24 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check if falling of map.
+        if (transform.position.y < -0.5f)
+        {
+            state = 0;
+            stop = true;
+        }
+
+        if (transform.position.z < -0.5f)
+        {
+            state = 0;
+            stop = true;
+        }
+
         // If Alive..
         if (!stop)
         {
             // Raycast to find surface and check if surface is goal.
-            if(Physics.Raycast(transform.position, Vector3.down, out hit, 0.35f))
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.35f))
             {
                 platform = hit.collider.GetComponent<MovingPlatform>();
                 if (hit.collider.tag == "Goal")
@@ -145,17 +158,13 @@ public class Movement : MonoBehaviour
                 {
                     moveDirection.y += Physics.gravity.y * Time.deltaTime;
                 }
-
-                // Check if falling of map.
-                if (transform.position.y < -0.5f)
-                {
-                    state = 0;
-                    stop = true;
-                }
             }
 
+
+            var deltaMove = moveDirection * Time.deltaTime;
+            deltaMove.z = -transform.position.z;
             // Execute move
-            controller.Move(moveDirection * Time.deltaTime);
+            controller.Move(deltaMove);
         }
         else
         {
