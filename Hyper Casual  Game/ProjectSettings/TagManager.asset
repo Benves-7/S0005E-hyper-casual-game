@@ -12,6 +12,7 @@ TagManager:
   - Coin
   - Segment
   - SegWall
+  - Options
   layers:
   - Default
   - TransparentFX

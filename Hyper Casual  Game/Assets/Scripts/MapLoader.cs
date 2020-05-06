@@ -15,6 +15,9 @@ public class MapLoader : MonoBehaviour
     public GameObject[] segments;
     public GameObject lastSpawned;
 
+    private GameObject optionsObject;
+    private Options options;
+
 
     public void Stop()
     {
@@ -27,31 +30,47 @@ public class MapLoader : MonoBehaviour
             movingPlatform.stop = true;
         }
     }
+    private void Awake()
+    {
+        try
+        {
+            options = GameObject.FindGameObjectWithTag("Options").GetComponent<Options>();
+        }
+        catch (System.Exception)
+        {
+            print("ERROR: No options detected.");
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
-        if (mode == RunMode.tutorial)
+        if (options != null)
         {
-            loadedSegments.Add(Instantiate(tutorialSegment, transform));
+            mode = options.mode;
+            if (mode == RunMode.tutorial)
+            {
+                loadedSegments.Add(Instantiate(tutorialSegment, transform));
+            }
+            else if (mode == RunMode.proceduralGeneration)
+            {
+                loadedSegments.Add(Instantiate(startSegment, transform));
+                for (int i = 0; i < 10; i++)
+                {
+                    float posZ = loadedSegments[loadedSegments.Count - 1].transform.position.z;
+                    float size = loadedSegments[loadedSegments.Count - 1].GetComponent<Segment>().sizeOfSegment;
+                    loadedSegments.Add(Instantiate(segments[Random.Range(0, segments.Length)], new Vector3(0, 0, posZ + size), new Quaternion(), transform));
+                }
+            }
         }
-        else if (mode == RunMode.test)
+        else
         {
+            mode = RunMode.test;
             loadedSegments.Add(Instantiate(startSegment, transform));
             for (int i = 0; i < 10; i++)
             {
                 float posZ = loadedSegments[loadedSegments.Count - 1].transform.position.z;
                 float size = loadedSegments[loadedSegments.Count - 1].GetComponent<Segment>().sizeOfSegment;
                 loadedSegments.Add(Instantiate(testSegment, new Vector3(0, 0, posZ + size), new Quaternion(), transform));
-            }
-        }
-        else if (mode == RunMode.proceduralGeneration)
-        {
-            loadedSegments.Add(Instantiate(startSegment, transform));
-            for (int i = 0; i < 10; i++)
-            {
-                float posZ = loadedSegments[loadedSegments.Count - 1].transform.position.z;
-                float size = loadedSegments[loadedSegments.Count - 1].GetComponent<Segment>().sizeOfSegment;
-                loadedSegments.Add(Instantiate(segments[Random.Range(0, segments.Length)], new Vector3(0, 0, posZ + size), new Quaternion(), transform));
             }
         }
     }

@@ -34,6 +34,7 @@ public class EndScreen : MonoBehaviour
     {
         resetButton.onClick.AddListener(resetHighScore);
         retryButton.onClick.AddListener(retry);
+        exitButton.onClick.AddListener(Exit);
         highscores = new int[highscoreSize];
     }
 
@@ -168,5 +169,10 @@ public class EndScreen : MonoBehaviour
     private void retry()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void Exit()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 }
