@@ -91,7 +91,7 @@ public class MapLoader : MonoBehaviour
             {
                 if (loadedSegments[0].transform.position.z < -(loadedSegments[0].GetComponent<Segment>().sizeOfSegment + 5f))
                 {
-                    player.points += (int)(loadedSegments[0].GetComponent<Segment>().sizeOfSegment * 0.1f);
+                    player.points += loadedSegments[0].GetComponent<Segment>().points;
                     Destroy(loadedSegments[0]);
                     loadedSegments.RemoveAt(0);
                 }
@@ -106,6 +106,7 @@ public class MapLoader : MonoBehaviour
             {
                 if (loadedSegments[0].transform.position.z < -(loadedSegments[0].GetComponent<Segment>().sizeOfSegment + 5f))
                 {
+                    player.points += loadedSegments[0].GetComponent<Segment>().points;
                     Destroy(loadedSegments[0]);
                     loadedSegments.RemoveAt(0);
                 }
