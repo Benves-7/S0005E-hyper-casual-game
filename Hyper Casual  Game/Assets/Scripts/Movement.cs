@@ -30,16 +30,12 @@ public class Movement : MonoBehaviour
 
     public string current_tag;
 
-
     // References.
     private CharacterController controller;
     private MovingPlatform platform;
     private GameObject cam;
     private RaycastHit hit;
     public MapLoader ml;
-
-
-    // Debug.DrawRay(transform.position, Vector3.down * 0.35f, Color.black);
 
     // Set all references.
     void Awake()
@@ -50,11 +46,6 @@ public class Movement : MonoBehaviour
         ml = GameObject.FindObjectOfType<MapLoader>().GetComponent<MapLoader>();
     }
     // Endscreen
-    void EndScreen(int state)
-    {
-        cam.SetActive(false);
-        ml.Stop();
-    }
 
     // Update is called once per frame
     void Update()
@@ -75,6 +66,10 @@ public class Movement : MonoBehaviour
         // If Alive..
         if (!stop)
         {
+            if (!cam.activeSelf)
+            {
+                cam.SetActive(true);
+            }
             // Raycast to find surface and check if surface is goal.
             if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.35f))
             {
@@ -168,7 +163,8 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            EndScreen(state);
+            cam.SetActive(false);
+            ml.stop = true;
         }
     }
     public void OnCollisionEnter(Collision collision) 
@@ -182,7 +178,7 @@ public class Movement : MonoBehaviour
         }
         if (collision.gameObject.tag == "Coin")
         {
-            points++;
+            points += 10;
             collision.gameObject.SetActive(false);
         }
     }

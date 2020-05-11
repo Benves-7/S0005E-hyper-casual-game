@@ -4,30 +4,47 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class EndScreen : MonoBehaviour
+public class GameScreens : MonoBehaviour
 {
-    public GameObject Canvas;
+    public GameObject endScreenPanel;
+    public GameObject hudPanel;
+    public GameObject pausePanel;
+
+    // PauseScreen.
+    public Text pointDisplayPause;
+    public Button resumeButton, restartButton, optionsButton, exitButtonPause;
+
+    // HudScreen.
+    public Text pointDisplay;
+
+    // EndScreen.
     public Text stateText;
     public Text pointText;
     public Text[] HighscoreTexts;
-
-
+    private bool setup;                             // Bool to check if setup is done.
+    // EndScreen - Highscore.
     private const int highscoreSize = 10;
     private int[] highscores; 
     public int count;
-
+    private string[] keys = { "Score1", "Score2", "Score3", "Score4", "Score5", "Score6", "Score7", "Score8", "Score9", "Score10" };
+    // EndScreen - Buttons.
     public Button resetButton;
     public Button retryButton;
     public Button exitButton;
 
-    private Movement playerMovementController;
-    private bool setup;
-    private string[] keys = { "Score1", "Score2", "Score3", "Score4", "Score5", "Score6", "Score7", "Score8", "Score9", "Score10" };
+    // References.
+    private Movement player;
+    private MapLoader map;
 
 
     private void Awake()
     {
-        playerMovementController = GameObject.FindGameObjectWithTag("Player").GetComponent<Movement>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Movement>();
+        map = GameObject.FindGameObjectWithTag("Maploader").GetComponent<MapLoader>();
+
+        hudPanel.SetActive(true);
+        pausePanel.SetActive(false);
+        endScreenPanel.SetActive(false);
     }
 
     private void Start()
@@ -40,33 +57,52 @@ public class EndScreen : MonoBehaviour
 
     private void Update()
     {
-        if (playerMovementController.stop && !setup)
+        if (player.stop && !pausePanel.activeSelf && !setup)
         {
             checkHighScore();
 
             // activate endscreen.
-            Canvas.SetActive(true);
+            endScreenPanel.SetActive(true);
+            hudPanel.SetActive(false);
 
             // set state to correct gamestate.
-            if (playerMovementController.state == 0)
+            if (player.state == 0)
             {
                 stateText.text = "Game Over";
             }
-            else if (playerMovementController.state == 1)
+            else if (player.state == 1)
             {
                 stateText.text = "Congratulations";
             }
 
             // display points
-            pointText.text = playerMovementController.points.ToString();
+            pointText.text = player.points.ToString();
 
             setup = true;
         }
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (pausePanel.activeSelf)
+            {
+                pausePanel.SetActive(false);
+                hudPanel.SetActive(true);
+                player.stop = false;
+                map.stop = false;
+            }
+            else
+            {
+                pausePanel.SetActive(true);
+                hudPanel.SetActive(false);
+                player.stop = true;
+                pointDisplayPause.text = pointDisplay.text;
+            }
+        }
+        pointDisplay.text = player.points.ToString();
     }
 
     private void checkHighScore()
     {
-        int score = playerMovementController.points;
+        int score = player.points;
 
         /// If Highscore has ever been saved.
         if (PlayerPrefs.HasKey("Highscore"))

@@ -13,6 +13,7 @@ TagManager:
   - Segment
   - SegWall
   - Options
+  - Maploader
   layers:
   - Default
   - TransparentFX
