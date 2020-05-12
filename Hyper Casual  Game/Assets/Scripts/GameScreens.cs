@@ -114,8 +114,6 @@ public class GameScreens : MonoBehaviour
                 exitButton.interactable = false;
             }
 
-
-
             setup = true;
         }
         if (Input.GetButtonDown("Cancel") && !player.dead)
