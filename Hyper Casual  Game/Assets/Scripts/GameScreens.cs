@@ -6,42 +6,62 @@ using UnityEngine.SceneManagement;
 
 public class GameScreens : MonoBehaviour
 {
+    [Header("Screens")]
     public GameObject endScreenPanel;
     public GameObject hudPanel;
     public GameObject pausePanel;
+    public GameObject startPanel;
 
-    // PauseScreen.
+    [Header("Pause menu - Referenses")]
     public Text pointDisplayPause;
-    public Button resumeButton, restartButton, optionsButton, exitButtonPause;
+    public Button resumeButton;
+    public Button restartButton;
+    public Button optionsButton;
+    public Button exitButtonPause;
 
-    // HudScreen.
+    [Header("Hud - Referenses")]
     public Text pointDisplay;
 
-    // EndScreen.
+    [Header("EndScreen - Texts")]
     public Text stateText;
     public Text pointText;
-    public Text[] HighscoreTexts;
-    private bool setup;                             // Bool to check if setup is done.
-    // EndScreen - Highscore.
-    private const int highscoreSize = 10;
-    private int[] highscores; 
-    public int count;
-    private string[] keys = { "Score1", "Score2", "Score3", "Score4", "Score5", "Score6", "Score7", "Score8", "Score9", "Score10" };
-    // EndScreen - Buttons.
-    public Button resetButton;
+
+    [Header("EndScreen - Buttons.")]
     public Button retryButton;
     public Button exitButton;
+    public Button submitButton;
 
-    // References.
+    [Header("EndScreen - Highscore - Referenses")]
+    public int highscoreIndex;
+    public InputField inputField;
+
+    private bool setup;                             // Bool to check if setup is done.
+    //private int[] highscores;
+    //private string[] names;
+    //private int count;
+    //private string[] keys = { "Score1", "Score2", "Score3", "Score4", "Score5", "Score6", "Score7", "Score8", "Score9", "Score10" };
+    //private string[] nameKeys = { "Name1", "Name2", "Name3", "Name4", "Name5", "Name6", "Name7", "Name8", "Name9", "Name10" };
+
+    [Header("Referenses")]
+
     private Movement player;
     private MapLoader map;
+    private Options options;
+    public Highscore highscoreScript;
 
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Movement>();
-        map = GameObject.FindGameObjectWithTag("Maploader").GetComponent<MapLoader>();
-
+        try
+        {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Movement>();
+            map = GameObject.FindGameObjectWithTag("Maploader").GetComponent<MapLoader>();
+            options = GameObject.FindGameObjectWithTag("Options").GetComponent<Options>();
+        }
+        catch (System.Exception)
+        {
+            print("ERROR: Missing references.");
+        }        
         hudPanel.SetActive(true);
         pausePanel.SetActive(false);
         endScreenPanel.SetActive(false);
@@ -49,17 +69,16 @@ public class GameScreens : MonoBehaviour
 
     private void Start()
     {
-        resetButton.onClick.AddListener(resetHighScore);
         retryButton.onClick.AddListener(retry);
         exitButton.onClick.AddListener(Exit);
-        highscores = new int[highscoreSize];
+        submitButton.onClick.AddListener(Submit);
     }
 
     private void Update()
     {
-        if (player.stop && !pausePanel.activeSelf && !setup)
+        if (player.dead && !setup)
         {
-            checkHighScore();
+            map.stop = true;
 
             // activate endscreen.
             endScreenPanel.SetActive(true);
@@ -78,9 +97,28 @@ public class GameScreens : MonoBehaviour
             // display points
             pointText.text = player.points.ToString();
 
+            highscoreIndex = highscoreScript.AddScore(player.points);
+
+            if (highscoreIndex == -1)
+            {
+                inputField.interactable = false;
+                submitButton.interactable = false;
+                retryButton.interactable = true;
+                exitButton.interactable = true;
+            }
+            else
+            {
+                inputField.interactable = true;
+                submitButton.interactable = true;
+                retryButton.interactable = false;
+                exitButton.interactable = false;
+            }
+
+
+
             setup = true;
         }
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel") && !player.dead)
         {
             if (pausePanel.activeSelf)
             {
@@ -94,112 +132,11 @@ public class GameScreens : MonoBehaviour
                 pausePanel.SetActive(true);
                 hudPanel.SetActive(false);
                 player.stop = true;
+                map.stop = true;
                 pointDisplayPause.text = pointDisplay.text;
             }
         }
         pointDisplay.text = player.points.ToString();
-    }
-
-    private void checkHighScore()
-    {
-        int score = player.points;
-
-        /// If Highscore has ever been saved.
-        if (PlayerPrefs.HasKey("Highscore"))
-        {
-            // Highscore contains the amount of saved scores.
-            count = PlayerPrefs.GetInt("Highscore");
-            
-            /// Extract saved scores to highscore array.
-            for (int i = 0; i < count; i++)
-            {
-                if (PlayerPrefs.HasKey(keys[i]))
-                {
-                    highscores[i] = PlayerPrefs.GetInt(keys[i]);
-                }
-            }
-
-            /// Add and sort new score.
-            for (int i = highscoreSize - 1; i >= 0; i--)
-            {
-                // If current highscore is bigger then new score and current highscore is not the last highscore add the new score one step bellow current highscore.
-                if (highscores[i] > score && !(i == highscoreSize - 1))
-                {
-                    highscores[i + 1] = score;
-                    break;
-                }
-                // If current highscore is less then new score.
-                else
-                {
-                    // If current highscore is last highscore, replace it with score.
-                    if (i == highscoreSize - 1)
-                    {
-                        highscores[i] = score;
-                    }
-                    // If current highscore is not last highscore, move that score one step and then place new score in its place.
-                    else
-                    {
-                        highscores[i + 1] = highscores[i];
-                        highscores[i] = score;
-                    }
-                }
-            }
-
-            /// Fill in the highscore into the textfields.
-            for (int i = 0; i < HighscoreTexts.Length; i++)
-            {
-                // If the score is 0, don't print 0.
-                if (highscores[i] == 0)
-                {
-                    HighscoreTexts[i].text = "-";
-                }
-                // Else just print the score.
-                else
-                {
-                    HighscoreTexts[i].text = highscores[i].ToString();
-                }
-            }
-
-            // If number of saved highscore is less than maximum number of saved highscore increase the integer in PlayerPrefs.
-            if (count < highscoreSize)
-            {
-                PlayerPrefs.SetInt("Highscore", count + 1);
-            }
-            // Save all the new highscores.
-            for (int i = 0; i < count; i++)
-            {
-                PlayerPrefs.SetInt(keys[i], highscores[i]);
-            }
-        }
-        /// Create Highscore
-        else
-        {
-            PlayerPrefs.SetInt("Highscore", 1);
-            PlayerPrefs.SetInt(keys[0], score);
-            HighscoreTexts[0].text = score.ToString();
-        }
-    }
-
-    private void resetHighScore()
-    {
-        /// Delete all keys that relates to Highscores.
-        if (PlayerPrefs.HasKey("Highscore"))
-        {
-            PlayerPrefs.DeleteKey("Highscore");
-        }
-        foreach (string key in keys)
-        {
-            if (PlayerPrefs.HasKey(key))
-            {
-                PlayerPrefs.DeleteKey(key);
-            }
-        }
-        foreach (Text text in HighscoreTexts)
-        {
-            text.text = "-";
-        }
-        // run the highscore check again.
-        checkHighScore();
     }
 
     private void retry()
@@ -209,6 +146,18 @@ public class GameScreens : MonoBehaviour
 
     private void Exit()
     {
+        options.sequence = new List<int>();
         SceneManager.LoadScene("Main Menu");
+    }
+
+    private void Submit()
+    {
+        if (inputField.text.Length > 0)
+        {
+            PlayerPrefs.SetString(highscoreScript.nameKeys[highscoreIndex], inputField.text);
+            highscoreScript.nameFields[highscoreIndex].text = inputField.text;
+            retryButton.interactable = true;
+            exitButton.interactable = true;
+        }
     }
 }

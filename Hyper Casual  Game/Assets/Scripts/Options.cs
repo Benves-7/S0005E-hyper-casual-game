@@ -6,7 +6,8 @@ using UnityEngine;
 public class Options : MonoBehaviour
 {
     public MapLoader.RunMode mode;
-    public int speed;
+    public int difficulty;
+    public List<int> sequence;
     
 
     // Load any options saved in PlayerPrefs..

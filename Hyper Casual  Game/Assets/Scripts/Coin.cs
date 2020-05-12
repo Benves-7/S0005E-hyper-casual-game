@@ -8,7 +8,6 @@ public class Coin : MonoBehaviour
 
     public void Update()
     {
-
         transform.Rotate(Vector3.forward, 360f * Time.deltaTime * RPM);
     }
 }

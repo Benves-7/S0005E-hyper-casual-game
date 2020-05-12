@@ -25,6 +25,7 @@ public class Movement : MonoBehaviour
 
     // needed bools (not implemented stuff.)
     public bool stop;
+    public bool dead;
     public int state;
     public int points;
 
@@ -54,17 +55,17 @@ public class Movement : MonoBehaviour
         if (transform.position.y < -0.5f)
         {
             state = 0;
-            stop = true;
+            dead = true;
         }
-
+        // Check if stuck behind object.
         if (transform.position.z < -0.5f)
         {
             state = 0;
-            stop = true;
+            dead = true;
         }
 
         // If Alive..
-        if (!stop)
+        if (!stop && !dead)
         {
             if (!cam.activeSelf)
             {
@@ -164,7 +165,6 @@ public class Movement : MonoBehaviour
         else
         {
             cam.SetActive(false);
-            ml.stop = true;
         }
     }
     public void OnCollisionEnter(Collision collision) 

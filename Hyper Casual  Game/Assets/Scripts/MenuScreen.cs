@@ -3,11 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenuScreen : MonoBehaviour
 {
-    public GameObject menuScreen, levelSelectScreen, optionsScreen;
-    public Button playButton, optionsButton, exitButton, tutorialButton, scoreGameButton;
+    [Header("Menu Panels")]
+    public GameObject menuScreen;
+    public GameObject levelSelectScreen;
+    public GameObject optionsScreen;
+    public GameObject highscoreScreen;
+    public GameObject aboutScreen;
+
+    [Header("General Buttons")]
+    public Button exitButton;
+
+    [Header("Main Menu Buttons")]
+    public Button playButton;
+    public Button optionsButton;
+    public Button highscoreButton;
+    public Button aboutButton;
+
+    [Header("Level Select Buttons")]
+    public Button tutorialButton;
+    public Button scoreGameButton;
+
+    [Header("HighscoreButton")]
+    public Button resetHighscoreButton;
+
+
+
+
+    [Header("references")]
     public GameObject optionsObject;
     public Options options;
 
@@ -19,6 +45,9 @@ public class MenuScreen : MonoBehaviour
         exitButton.onClick.AddListener(Back);
         tutorialButton.onClick.AddListener(Tutorial);
         scoreGameButton.onClick.AddListener(ScoreGame);
+        highscoreButton.onClick.AddListener(Highscore);
+        resetHighscoreButton.onClick.AddListener(ResetHighscore);
+        aboutButton.onClick.AddListener(About);
 
         optionsObject = GameObject.FindGameObjectWithTag("Options");
         options = optionsObject.GetComponent<Options>();
@@ -49,6 +78,18 @@ public class MenuScreen : MonoBehaviour
             menuScreen.SetActive(true);
             exitButton.GetComponentInChildren<Text>().text = "Exit";
         }
+        else if (highscoreScreen.activeSelf)
+        {
+            highscoreScreen.SetActive(false);
+            menuScreen.SetActive(true);
+            exitButton.GetComponentInChildren<Text>().text = "Exit";
+        }
+        else if (aboutScreen.activeSelf)
+        {
+            aboutScreen.SetActive(false);
+            menuScreen.SetActive(true);
+            exitButton.GetComponentInChildren<Text>().text = "Exit";
+        }
     }
     void Quit()
     {
@@ -69,6 +110,40 @@ public class MenuScreen : MonoBehaviour
         levelSelectScreen.SetActive(true);
         exitButton.GetComponentInChildren<Text>().text = "Back";
     }
+    void Highscore()
+    {
+        menuScreen.SetActive(false);
+        highscoreScreen.SetActive(true);
+        exitButton.GetComponentInChildren<Text>().text = "Back";
+    }
+    void ResetHighscore()
+    {
+        PlayerPrefs.SetInt("Highscore", 0);
+
+        foreach (string key in Keys.keys)
+        {
+            if (PlayerPrefs.HasKey(key))
+            {
+                PlayerPrefs.DeleteKey(key);
+            }
+        }
+        foreach (string key in Keys.nameKeys)
+        {
+            if (PlayerPrefs.HasKey(key))
+            {
+                PlayerPrefs.DeleteKey(key);
+            }
+        }
+        Back();
+        Highscore();
+    }    
+    void About()
+    {
+        menuScreen.SetActive(false);
+        aboutScreen.SetActive(true);
+        exitButton.GetComponentInChildren<Text>().text = "Back";
+    }    
+
     void Tutorial()
     {
         options.mode = MapLoader.RunMode.tutorial;
