@@ -556,7 +556,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4301720524572827684
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1227,7 +1227,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 2672901495101775126}
   m_TextComponent: {fileID: 4228785303512579518}
   m_Placeholder: {fileID: 8317148512985424008}
   m_ContentType: 0
@@ -2696,7 +2696,7 @@ GameObject:
   - component: {fileID: 4286033069688617427}
   - component: {fileID: 3313476888039132432}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Countdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3855,6 +3855,7 @@ MonoBehaviour:
   submitButton: {fileID: 2731092364800682964}
   highscoreIndex: 0
   inputField: {fileID: 6663338997724153141}
+  countdown: {fileID: 3313476888039132432}
   highscoreScript: {fileID: 604065962431608268}
 --- !u!1 &8269861887407712672
 GameObject:
@@ -4580,6 +4581,28 @@ MonoBehaviour:
   - {fileID: 6894972843648601932}
   - {fileID: 6490554144703485962}
   - {fileID: 6886974219297463764}
+  keys:
+  - Score1
+  - Score2
+  - Score3
+  - Score4
+  - Score5
+  - Score6
+  - Score7
+  - Score8
+  - Score9
+  - Score10
+  nameKeys:
+  - Name1
+  - Name2
+  - Name3
+  - Name4
+  - Name5
+  - Name6
+  - Name7
+  - Name8
+  - Name9
+  - Name10
 --- !u!1 &8269861888291650315
 GameObject:
   m_ObjectHideFlags: 0
@@ -4663,7 +4686,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8269861888390176323
 RectTransform:
   m_ObjectHideFlags: 0

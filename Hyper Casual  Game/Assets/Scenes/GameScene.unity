@@ -120,6 +120,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &601654200 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3313476888039132432, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
+    type: 3}
+  m_PrefabInstance: {fileID: 713763056}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &651444841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -206,10 +218,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2358205133851988712, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5536709743548942131, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791568680925880667, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
+        type: 3}
+      propertyPath: m_Name
+      value: Countdown
       objectReference: {fileID: 0}
     - target: {fileID: 8129754103768719146, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
         type: 3}
@@ -286,6 +308,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8269861886966852690, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
+        type: 3}
+      propertyPath: countdown
+      value: 
+      objectReference: {fileID: 601654200}
     - target: {fileID: 8269861888390176322, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
         type: 3}
       propertyPath: m_Name

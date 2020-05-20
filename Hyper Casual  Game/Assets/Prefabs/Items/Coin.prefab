@@ -93,6 +93,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RPM: 1
+  pickup: 0
+  t: 0.3
+  time: 0
+  dist: 6
 --- !u!65 &5328578414027152447
 BoxCollider:
   m_ObjectHideFlags: 0

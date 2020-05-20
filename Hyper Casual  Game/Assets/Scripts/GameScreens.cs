@@ -35,6 +35,10 @@ public class GameScreens : MonoBehaviour
     public int highscoreIndex;
     public InputField inputField;
 
+    [Header("StartScreen - TextField")]
+    public Text countdown;
+    private float time;
+
     private bool setup;                             // Bool to check if setup is done.
     //private int[] highscores;
     //private string[] names;
@@ -43,11 +47,11 @@ public class GameScreens : MonoBehaviour
     //private string[] nameKeys = { "Name1", "Name2", "Name3", "Name4", "Name5", "Name6", "Name7", "Name8", "Name9", "Name10" };
 
     [Header("Referenses")]
-
+    public Highscore highscoreScript;
     private Movement player;
     private MapLoader map;
     private Options options;
-    public Highscore highscoreScript;
+    private GameObject cam;
 
 
     private void Awake()
@@ -57,14 +61,21 @@ public class GameScreens : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Movement>();
             map = GameObject.FindGameObjectWithTag("Maploader").GetComponent<MapLoader>();
             options = GameObject.FindGameObjectWithTag("Options").GetComponent<Options>();
+            cam = GameObject.FindGameObjectWithTag("Camera");
         }
         catch (System.Exception)
         {
             print("ERROR: Missing references.");
         }        
         hudPanel.SetActive(true);
+        startPanel.SetActive(true);
         pausePanel.SetActive(false);
         endScreenPanel.SetActive(false);
+
+        map.stop = true;
+        player.stop = true;
+
+        time = 3f;
     }
 
     private void Start()
@@ -78,6 +89,7 @@ public class GameScreens : MonoBehaviour
     {
         if (player.dead && !setup)
         {
+            cam.SetActive(false);
             map.stop = true;
 
             // activate endscreen.
@@ -124,6 +136,7 @@ public class GameScreens : MonoBehaviour
                 hudPanel.SetActive(true);
                 player.stop = false;
                 map.stop = false;
+                cam.SetActive(true);
             }
             else
             {
@@ -131,9 +144,23 @@ public class GameScreens : MonoBehaviour
                 hudPanel.SetActive(false);
                 player.stop = true;
                 map.stop = true;
+                cam.SetActive(false);
                 pointDisplayPause.text = pointDisplay.text;
             }
         }
+        if (startPanel.activeSelf)
+        {
+            time -= Time.deltaTime;
+            countdown.text = ((int)time).ToString();
+            if ((int)time <= 0)
+            {
+                startPanel.SetActive(false);
+                map.stop = false;
+                player.stop = false;
+            }
+        }
+
+
         pointDisplay.text = player.points.ToString();
     }
 

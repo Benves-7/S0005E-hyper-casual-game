@@ -4,73 +4,72 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    // values for charactercontroller.
+
+    [Header("Values for charactercontroller")]
     public Vector3 moveDirection;
 
-    // jump values.
-    public float JumpForce;
+    [Header("Jump values")]
+    public float rotationSpeed;
+    private float jumpForce = 3;
+    private float degreesLeft;
 
-    // gravity values
-    public float fallMultiplier;
-    public float lowJumpMultiplier;
-    public float slideMultiplier;
+    [Header("Gravity values")]
+    private float fallMultiplier = 2.5f;
+    private float lowJumpMultiplier = 1.5f;
+    private float slideMultiplier = 1.25f;
 
-    // movement values.
-    public float MoveSpeed;
+    [Header("Movement values")]
+    private float MoveSpeed = 7.5f;
 
-    // wall slide values.
-    public bool onWall;
-    public bool wallJump;
-    public bool leftSide;
+    [Header("Wallrun values.")]
+    private bool onWall;
+    private bool wallJump;
 
-    // needed bools (not implemented stuff.)
+    [Header("Bools")]
     public bool stop;
     public bool dead;
+
+    [Header("Public State and Point")]
     public int state;
     public int points;
 
-    public string current_tag;
-
-    // References.
+    [Header("References")]
     private CharacterController controller;
     private MovingPlatform platform;
-    private GameObject cam;
     private RaycastHit hit;
-    public MapLoader ml;
+    private Transform cubeTransform;
+
 
     // Set all references.
     void Awake()
     {
         moveDirection = new Vector3(0, 0, 0);
         controller = GetComponent<CharacterController>();
-        cam = GameObject.FindGameObjectWithTag("Camera");
-        ml = GameObject.FindObjectOfType<MapLoader>().GetComponent<MapLoader>();
+        cubeTransform = transform.GetChild(0);
     }
-    // Endscreen
 
     // Update is called once per frame
     void Update()
     {
-        // Check if falling of map.
-        if (transform.position.y < -0.5f)
+        // Death checks.
+        if (!dead)
         {
-            state = 0;
-            dead = true;
+            // Check if falling of map.
+            if (transform.position.y < -0.5f)
+            {
+                state = 0;
+                dead = true;
+            }
+            // Check if stuck behind object.
+            if (transform.position.z < -0.5f)
+            {
+                state = 0;
+                dead = true;
+            }
         }
-        // Check if stuck behind object.
-        if (transform.position.z < -0.5f)
-        {
-            state = 0;
-            dead = true;
-        }
-
-        // If Alive..
+        // If not stoped or dead.
         if (!stop && !dead)
         {
-            if (!cam.activeSelf)
-            {
-                cam.SetActive(true);
-            }
             // Raycast to find surface and check if surface is goal.
             if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.35f))
             {
@@ -78,7 +77,7 @@ public class Movement : MonoBehaviour
                 if (hit.collider.tag == "Goal")
                 {
                     state = 1;
-                    stop = true;
+                    dead = true;
                 }
             }
             else
@@ -112,25 +111,24 @@ public class Movement : MonoBehaviour
                 }
             }
 
-            // Jump
+            // Jump button pressed and can jump.
             if (Input.GetButtonDown("Jump") && (controller.isGrounded || (onWall && wallJump)))
             {
                 if (controller.isGrounded)
                 {
                     wallJump = true;
-                }
-
-                if (onWall && wallJump)
-                {
-                    wallJump = false;
-                    moveDirection.y = JumpForce*0.5f;
+                    moveDirection.y = jumpForce;
                 }
                 else
                 {
-                    moveDirection.y = JumpForce;
+                    wallJump = false;
+                    moveDirection.y = jumpForce * 0.5f;
+                }
+                if (degreesLeft == 0)
+                {
+                    degreesLeft = 180;
                 }
             }
-
             // Gravity
             else if (!controller.isGrounded)
             {
@@ -156,30 +154,38 @@ public class Movement : MonoBehaviour
                 }
             }
 
-
+            // Calculate Rotation.
             var deltaMove = moveDirection * Time.deltaTime;
             deltaMove.z = -transform.position.z;
-            // Execute move
+            // Execute movement.
             controller.Move(deltaMove);
-        }
-        else
-        {
-            cam.SetActive(false);
+            // Execute rotation.
+            if (degreesLeft > 0)
+            {
+                float degrees = rotationSpeed * 360 * Time.deltaTime;
+                cubeTransform.Rotate(degrees, 0, 0);
+                degreesLeft -= degrees;
+            }
+            else if (degreesLeft < 0)
+            {
+                cubeTransform.Rotate(degreesLeft, 0, 0);
+                degreesLeft = 0;
+            }
         }
     }
+
     public void OnCollisionEnter(Collision collision) 
     {
-        current_tag = collision.gameObject.tag;
-
         if (collision.gameObject.tag == "Trap")
         {
             state = 0;
-            stop = true;
+            dead = true;
         }
         if (collision.gameObject.tag == "Coin")
         {
             points += 10;
-            collision.gameObject.SetActive(false);
+            collision.gameObject.GetComponent<BoxCollider>().enabled = false;
+            collision.gameObject.GetComponent<Coin>().PickUp();
         }
     }
 

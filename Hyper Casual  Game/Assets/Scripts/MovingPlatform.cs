@@ -65,5 +65,13 @@ public class MovingPlatform : MonoBehaviour
                 goingForward = true;
             }
         }
+        if (GetComponentInParent<MapLoader>().stop)
+        {
+            stop = true;
+        }
+        else
+        {
+            stop = false;
+        }
     }
 }

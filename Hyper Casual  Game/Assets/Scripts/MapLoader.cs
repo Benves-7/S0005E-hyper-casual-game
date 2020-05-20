@@ -23,14 +23,7 @@ public class MapLoader : MonoBehaviour
 
     public int speed = 5;
 
-    public void Stop()
-    {
-        stop = true;
-        foreach (var movingPlatform in GetComponentsInChildren<MovingPlatform>())
-        {
-            movingPlatform.stop = true;
-        }
-    }
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Movement>();
@@ -88,6 +81,17 @@ public class MapLoader : MonoBehaviour
                     int index = Random.Range(0, segments.Length);
                     options.sequence.Add(index);
                     loadedSegments.Add(Instantiate(segments[index], new Vector3(0, 0, posZ + size), new Quaternion(), transform));
+                }
+            }
+            else
+            {
+                mode = RunMode.test;
+                loadedSegments.Add(Instantiate(startSegment, transform));
+                for (int i = 0; i < 10; i++)
+                {
+                    float posZ = loadedSegments[loadedSegments.Count - 1].transform.position.z;
+                    float size = loadedSegments[loadedSegments.Count - 1].GetComponent<Segment>().sizeOfSegment;
+                    loadedSegments.Add(Instantiate(testSegment, new Vector3(0, 0, posZ + size), new Quaternion(), transform));
                 }
             }
         }
@@ -165,6 +169,10 @@ public class MapLoader : MonoBehaviour
             {
                 segment.transform.Translate(Vector3.forward * -speed * Time.deltaTime);
             }
+        }
+        else
+        {
+
         }
     }
 }
