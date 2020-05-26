@@ -29,9 +29,7 @@ public class MenuScreen : MonoBehaviour
 
     [Header("HighscoreButton")]
     public Button resetHighscoreButton;
-
-
-
+    private Highscore highscoreScript;
 
     [Header("references")]
     public GameObject optionsObject;
@@ -51,6 +49,7 @@ public class MenuScreen : MonoBehaviour
 
         optionsObject = GameObject.FindGameObjectWithTag("Options");
         options = optionsObject.GetComponent<Options>();
+        highscoreScript = GetComponentInChildren<Highscore>();
         DontDestroyOnLoad(optionsObject);
     }
 
@@ -118,22 +117,7 @@ public class MenuScreen : MonoBehaviour
     }
     void ResetHighscore()
     {
-        PlayerPrefs.SetInt("Highscore", 0);
-
-        foreach (string key in Keys.keys)
-        {
-            if (PlayerPrefs.HasKey(key))
-            {
-                PlayerPrefs.DeleteKey(key);
-            }
-        }
-        foreach (string key in Keys.nameKeys)
-        {
-            if (PlayerPrefs.HasKey(key))
-            {
-                PlayerPrefs.DeleteKey(key);
-            }
-        }
+        highscoreScript.ResetHighscore();
         Back();
         Highscore();
     }    
@@ -143,7 +127,6 @@ public class MenuScreen : MonoBehaviour
         aboutScreen.SetActive(true);
         exitButton.GetComponentInChildren<Text>().text = "Back";
     }    
-
     void Tutorial()
     {
         options.mode = MapLoader.RunMode.tutorial;

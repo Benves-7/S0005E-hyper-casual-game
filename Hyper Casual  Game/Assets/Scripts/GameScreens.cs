@@ -89,6 +89,7 @@ public class GameScreens : MonoBehaviour
     {
         if (player.dead && !setup)
         {
+            // deactivate playercamera and stop the map.
             cam.SetActive(false);
             map.stop = true;
 
@@ -109,6 +110,8 @@ public class GameScreens : MonoBehaviour
             // display points
             pointText.text = player.points.ToString();
 
+
+            // if score is on highscore..
             highscoreIndex = highscoreScript.AddScore(player.points);
 
             if (highscoreIndex == -1)
@@ -160,7 +163,6 @@ public class GameScreens : MonoBehaviour
             }
         }
 
-
         pointDisplay.text = player.points.ToString();
     }
 
@@ -179,7 +181,8 @@ public class GameScreens : MonoBehaviour
     {
         if (inputField.text.Length > 0)
         {
-            PlayerPrefs.SetString(highscoreScript.nameKeys[highscoreIndex], inputField.text);
+            highscoreScript.SubmitScore(inputField.text);
+
             highscoreScript.nameFields[highscoreIndex].text = inputField.text;
             retryButton.interactable = true;
             exitButton.interactable = true;

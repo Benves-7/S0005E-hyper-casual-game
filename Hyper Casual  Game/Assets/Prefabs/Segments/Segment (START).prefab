@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sizeOfSegment: 7.5
-  points: 5
+  points: 0
 --- !u!1 &7923321117586961810
 GameObject:
   m_ObjectHideFlags: 0

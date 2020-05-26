@@ -60,4 +60,14 @@ MonoBehaviour:
   - {fileID: 1324507499610698204, guid: 75ccfb2cdb487a0449f9485ee4fa1e1b, type: 3}
   - {fileID: 2888275569880780909, guid: 080618c1cdedbbe46b35d78d40476010, type: 3}
   - {fileID: 6404913938178818071, guid: 6735a3f2bbe68fa448c3a581f594545e, type: 3}
+  - {fileID: 3644260877547428943, guid: d6b4a0832ef5e6d489dcf12d231da361, type: 3}
+  - {fileID: 4774861480761269832, guid: 4aaad70b747c8b14cb1e04251b841806, type: 3}
+  - {fileID: 3644260877547428943, guid: 13ae9a7bcda1e924782239275dfe51b5, type: 3}
+  - {fileID: 3644260877547428943, guid: 3555787515cd12347af5ada0a063d918, type: 3}
+  - {fileID: 3644260877547428943, guid: c6b965bb57247cf45beafc8939880deb, type: 3}
+  - {fileID: 3644260877547428943, guid: 84c9401c2795670428658d29e0408ab5, type: 3}
   lastSpawned: {fileID: 0}
+  sequence: 
+  stop: 0
+  player: {fileID: 0}
+  speed: 5
