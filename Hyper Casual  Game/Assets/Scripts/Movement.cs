@@ -13,7 +13,7 @@ public class Movement : MonoBehaviour
     private AudioSource audio;
     private float jumpForce = 3;
     private float degreesLeft;
-
+    private float time;
 
     [Header("Gravity values")]
     private float fallMultiplier = 2.5f;
@@ -24,8 +24,8 @@ public class Movement : MonoBehaviour
     private float MoveSpeed = 7.5f;
 
     [Header("Wallrun values.")]
-    private bool onWall;
-    private bool wallJump;
+    public bool onWall;
+    public bool wallJump;
 
     [Header("Bools")]
     public bool stop;
@@ -115,26 +115,29 @@ public class Movement : MonoBehaviour
             }
 
             // Jump button pressed and can jump.
-            if (Input.GetButtonDown("Jump") && (controller.isGrounded || (onWall && wallJump)))
+            if (Input.GetButton("Jump") && (controller.isGrounded || (onWall && wallJump)))
             {
                 if (controller.isGrounded)
                 {
                     wallJump = true;
                     moveDirection.y = jumpForce;
+                    print("Jumping from ground");
+                    audio.Play();
                 }
-                else
+                else if (Input.GetButtonDown("Jump"))
                 {
                     wallJump = false;
                     moveDirection.y = jumpForce * 0.5f;
+                    print("Jumping from wall");
+                    audio.Play();
                 }
                 if (degreesLeft == 0)
                 {
                     degreesLeft = 180;
                 }
-                audio.Play();
             }
             // Gravity
-            else if (!controller.isGrounded)
+            if (!controller.isGrounded)
             {
                 // if on a wall and going down, fall slower then usual.
                 if (onWall && moveDirection.y <= 0)
@@ -147,9 +150,10 @@ public class Movement : MonoBehaviour
                     moveDirection.y += Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
                 }
                 // if spacebar is pressed as the character moves upwards, gravity should have less of a effect (higher jump).
-                else if (moveDirection.y > 0 && Input.GetButton("Jump"))
+                else if (moveDirection.y > 0 && Input.GetButton("Jump") && !(onWall))
                 {
                     moveDirection.y += Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+                    print("Going upwards");
                 }
                 // if spacebar is not pressed and the character moves upwards, gravity is slowing you down just like normal.
                 else
@@ -157,7 +161,18 @@ public class Movement : MonoBehaviour
                     moveDirection.y += Physics.gravity.y * Time.deltaTime;
                 }
             }
-
+            if (controller.isGrounded)
+            {
+                if (time > .5f)
+                {
+                    time = 0;
+                    moveDirection.y = 0;
+                }
+                else
+                {
+                    time += Time.deltaTime;
+                }
+            }
             // Calculate Rotation.
             var deltaMove = moveDirection * Time.deltaTime;
             deltaMove.z = -transform.position.z;

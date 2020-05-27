@@ -59,7 +59,7 @@ public class Highscore : MonoBehaviour
         for (int i = highscores.Length-1; i >= 0; i--)
         {
             // If current highscore is bigger then new score and current highscore is not the last highscore add the new score one step bellow current highscore.
-            if (highscores[i] > score)
+            if (highscores[i] >= score)
             {
                 if (i == 9)
                 {
