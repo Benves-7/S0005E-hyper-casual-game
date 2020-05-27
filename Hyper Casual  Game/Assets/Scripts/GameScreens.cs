@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class GameScreens : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameScreens : MonoBehaviour
     public GameObject hudPanel;
     public GameObject pausePanel;
     public GameObject startPanel;
+    public GameObject optionsPanel;
 
     [Header("Pause menu - Referenses")]
     public Text pointDisplayPause;
@@ -18,6 +20,9 @@ public class GameScreens : MonoBehaviour
     public Button restartButton;
     public Button optionsButton;
     public Button exitButtonPause;
+
+    [Header("Options menu - Referenses")]
+    public Button backButton;
 
     [Header("Hud - Referenses")]
     public Text pointDisplay;
@@ -40,11 +45,6 @@ public class GameScreens : MonoBehaviour
     private float time;
 
     private bool setup;                             // Bool to check if setup is done.
-    //private int[] highscores;
-    //private string[] names;
-    //private int count;
-    //private string[] keys = { "Score1", "Score2", "Score3", "Score4", "Score5", "Score6", "Score7", "Score8", "Score9", "Score10" };
-    //private string[] nameKeys = { "Name1", "Name2", "Name3", "Name4", "Name5", "Name6", "Name7", "Name8", "Name9", "Name10" };
 
     [Header("Referenses")]
     public Highscore highscoreScript;
@@ -71,6 +71,7 @@ public class GameScreens : MonoBehaviour
         startPanel.SetActive(true);
         pausePanel.SetActive(false);
         endScreenPanel.SetActive(false);
+        optionsPanel.SetActive(false);
 
         map.stop = true;
         player.stop = true;
@@ -80,9 +81,15 @@ public class GameScreens : MonoBehaviour
 
     private void Start()
     {
-        retryButton.onClick.AddListener(retry);
+        retryButton.onClick.AddListener(Retry);
         exitButton.onClick.AddListener(Exit);
         submitButton.onClick.AddListener(Submit);
+
+        resumeButton.onClick.AddListener(Resume);
+        restartButton.onClick.AddListener(Retry);
+        optionsButton.onClick.AddListener(Options);
+        exitButtonPause.onClick.AddListener(Exit);
+        backButton.onClick.AddListener(Back);
     }
 
     private void Update()
@@ -135,11 +142,7 @@ public class GameScreens : MonoBehaviour
         {
             if (pausePanel.activeSelf)
             {
-                pausePanel.SetActive(false);
-                hudPanel.SetActive(true);
-                player.stop = false;
-                map.stop = false;
-                cam.SetActive(true);
+                Resume();
             }
             else
             {
@@ -166,7 +169,7 @@ public class GameScreens : MonoBehaviour
         pointDisplay.text = player.points.ToString();
     }
 
-    private void retry()
+    private void Retry()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -175,6 +178,27 @@ public class GameScreens : MonoBehaviour
     {
         options.sequence = new List<int>();
         SceneManager.LoadScene("Main Menu");
+    }
+
+    private void Resume()
+    {
+        pausePanel.SetActive(false);
+        hudPanel.SetActive(true);
+        player.stop = false;
+        map.stop = false;
+        cam.SetActive(true);
+    }
+
+    private void Options()
+    {
+        pausePanel.SetActive(false);
+        optionsPanel.SetActive(true);
+    }
+
+    public void Back()
+    {
+        pausePanel.SetActive(true);
+        optionsPanel.SetActive(false);
     }
 
     private void Submit()

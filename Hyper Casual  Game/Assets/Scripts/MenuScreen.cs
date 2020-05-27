@@ -49,7 +49,7 @@ public class MenuScreen : MonoBehaviour
 
         optionsObject = GameObject.FindGameObjectWithTag("Options");
         options = optionsObject.GetComponent<Options>();
-        highscoreScript = GetComponentInChildren<Highscore>();
+        highscoreScript = GameObject.Find("Highscore").GetComponent<Highscore>();
         DontDestroyOnLoad(optionsObject);
     }
 
@@ -57,6 +57,10 @@ public class MenuScreen : MonoBehaviour
     private void Start()
     {
         menuScreen.SetActive(true);
+        levelSelectScreen.SetActive(false);
+        optionsScreen.SetActive(false);
+        highscoreScreen.SetActive(false);
+        aboutScreen.SetActive(false);
     }
     void Back()
     {

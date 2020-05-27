@@ -10,8 +10,10 @@ public class Movement : MonoBehaviour
 
     [Header("Jump values")]
     public float rotationSpeed;
+    private AudioSource audio;
     private float jumpForce = 3;
     private float degreesLeft;
+
 
     [Header("Gravity values")]
     private float fallMultiplier = 2.5f;
@@ -46,6 +48,7 @@ public class Movement : MonoBehaviour
         moveDirection = new Vector3(0, 0, 0);
         controller = GetComponent<CharacterController>();
         cubeTransform = transform.GetChild(0);
+        audio = GameObject.Find("LevelSFX").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -128,6 +131,7 @@ public class Movement : MonoBehaviour
                 {
                     degreesLeft = 180;
                 }
+                audio.Play();
             }
             // Gravity
             else if (!controller.isGrounded)
