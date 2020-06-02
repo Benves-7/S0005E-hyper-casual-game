@@ -2,16 +2,16 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor (typeof (Coin))]
+[CustomEditor(typeof(Test))]
 public class TestEditor : Editor
-{
+{   
     public override void OnInspectorGUI()
     {
-        Coin test = (Coin)target;
+        Test test = (Test)target;
 
-        if (GUILayout.Button("Test Pickup"))
+        if (GUILayout.Button("Test"))
         {
-            test.PickUp();
+            test.runTest();
         }
 
         base.OnInspectorGUI();

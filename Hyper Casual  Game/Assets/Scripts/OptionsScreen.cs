@@ -41,7 +41,6 @@ public class OptionsScreen : MonoBehaviour
         PlayerPrefs.SetFloat("masterVolume", masterVolume);
         PlayerPrefs.SetFloat("musicVolume", musicVolume);
         PlayerPrefs.SetFloat("sfxVolume", sfxVolume);
-
     }
 
     private void GetResolutions()
@@ -80,10 +79,11 @@ public class OptionsScreen : MonoBehaviour
         volumeMasterSlider.value = masterVolume;
         volumeMusicSlider.value = musicVolume;
         volumeFXSlider.value = sfxVolume;
-
     }
+
     private void Awake()
     {
+        options = FindObjectOfType<Options>();
         resolutionDropdown.onValueChanged.AddListener(delegate { ChangeResolution(); });
         fullscreenToggle.onValueChanged.AddListener(delegate { FullscreenChange(); });
     }
@@ -101,6 +101,7 @@ public class OptionsScreen : MonoBehaviour
         Screen.SetResolution(int.Parse(res[0]), int.Parse(res[2]), fullscreenToggle.isOn);
         resolutionDropdown.RefreshShownValue();
     }
+
     public void SetMusicVolume(float volume)
     {
         audioMixer.SetFloat("musicVolume", volume);
@@ -113,5 +114,4 @@ public class OptionsScreen : MonoBehaviour
     {
         audioMixer.SetFloat("masterVolume", volume);
     }
-
 }

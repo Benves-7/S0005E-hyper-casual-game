@@ -642,6 +642,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1671155921279502829, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387333521594176318, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938927001688133831, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4911746118853438297, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030577482056409071, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
+        type: 3}
+      propertyPath: audioMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 7c5dd79a5a74360469e535cbec1bccda,
+        type: 2}
+    - target: {fileID: 7088769947514372398, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809822660976081370, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8269861886966852688, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
         type: 3}
       propertyPath: m_Name
@@ -705,7 +741,7 @@ PrefabInstance:
     - target: {fileID: 8269861888390176322, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8317148512985424008, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
         type: 3}
@@ -721,6 +757,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8609095972255197211, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf0bf0d90a3882d4d8cb5e1f0d33be2e, type: 3}
