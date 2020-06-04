@@ -142,7 +142,7 @@ public class GameScreens : MonoBehaviour
 
             setup = true;
         }
-        if (Input.GetButtonDown("Cancel") && !player.dead)
+        if (Input.GetButtonDown("Cancel") && !player.dead && !startPanel.activeSelf && !optionsPanel.activeSelf && !endScreenPanel.activeSelf)
         {
             if (pausePanel.activeSelf)
             {

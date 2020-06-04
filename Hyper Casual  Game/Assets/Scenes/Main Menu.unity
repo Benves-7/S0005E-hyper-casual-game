@@ -648,6 +648,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6932295800804709090, guid: 7e33b699a209f3f4abecabd6833177ac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6956001392633351626, guid: 7e33b699a209f3f4abecabd6833177ac,
         type: 3}
       propertyPath: m_Controller
@@ -853,6 +858,19 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 42ec35901808ea644a2c2365f3a3d7a8, type: 2}
+    - target: {fileID: 7840024065317778612, guid: 7e33b699a209f3f4abecabd6833177ac,
+        type: 3}
+      propertyPath: m_Text
+      value: 'The game about a cube running thru a never ending gauntlet!
+
+
+        Controll the Cube with the a,d keys and space to jump, avoid the void and
+        deadly spikes. walls can be run along to make a jump last longer and grants
+        a walljump.
+
+
+        try out the Tutorial map to test all the functions of the game.'
+      objectReference: {fileID: 0}
     - target: {fileID: 8457205180059159180, guid: 7e33b699a209f3f4abecabd6833177ac,
         type: 3}
       propertyPath: m_AnchorMax.y
