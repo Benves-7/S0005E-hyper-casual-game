@@ -48,7 +48,7 @@ public class Movement : MonoBehaviour
         moveDirection = new Vector3(0, 0, 0);
         controller = GetComponent<CharacterController>();
         cubeTransform = transform.GetChild(0);
-        _audio = GameObject.Find("LevelSFX").GetComponent<AudioSource>();
+        _audio = GameObject.Find("Camera").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -121,14 +121,12 @@ public class Movement : MonoBehaviour
                 {
                     wallJump = true;
                     moveDirection.y = jumpForce;
-                    print("Jumping from ground");
                     _audio.Play();
                 }
                 else if (Input.GetButtonDown("Jump"))
                 {
                     wallJump = false;
                     moveDirection.y = jumpForce * 0.5f;
-                    print("Jumping from wall");
                     _audio.Play();
                 }
                 if (degreesLeft == 0)

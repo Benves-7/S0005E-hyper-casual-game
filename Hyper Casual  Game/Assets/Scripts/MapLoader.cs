@@ -13,7 +13,6 @@ public class MapLoader : MonoBehaviour
 
     public List<GameObject> loadedSegments;
     public GameObject[] segments;
-    public GameObject lastSpawned;
     private Options options;
     public List<int> sequence;
 
@@ -151,6 +150,7 @@ public class MapLoader : MonoBehaviour
                         posZ = loadedSegments[loadedSegments.Count - 1].transform.position.z;
                         size = loadedSegments[loadedSegments.Count - 1].GetComponent<Segment>().sizeOfSegment;
                         loadedSegments.Add(Instantiate(segments[sequence[0]], new Vector3(0, 0, posZ + size), new Quaternion(), transform));
+                        sequence.RemoveAt(0);
                     }
                     else
                     {
@@ -160,9 +160,6 @@ public class MapLoader : MonoBehaviour
                         options.sequence.Add(index);
                         loadedSegments.Add(Instantiate(segments[index], new Vector3(0, 0, posZ + size), new Quaternion(), transform));
                     }
-
-                    
-
                 }
             }
             foreach (var segment in loadedSegments)

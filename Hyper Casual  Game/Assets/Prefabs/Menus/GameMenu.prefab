@@ -7174,7 +7174,7 @@ MonoBehaviour:
   inputField: {fileID: 6663338997724153141}
   countdown: {fileID: 3313476888039132432}
   highscoreScript: {fileID: 604065962431608268}
-  ops: {fileID: 0}
+  ops: {fileID: 5030577482056409071}
 --- !u!1 &8269861887407712672
 GameObject:
   m_ObjectHideFlags: 0
