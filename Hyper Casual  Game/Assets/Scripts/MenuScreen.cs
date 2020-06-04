@@ -35,6 +35,8 @@ public class MenuScreen : MonoBehaviour
     public GameObject optionsObject;
     public Options options;
 
+    public OptionsScreen ops;
+
 
     private void Awake()
     {
@@ -50,6 +52,7 @@ public class MenuScreen : MonoBehaviour
         optionsObject = GameObject.FindGameObjectWithTag("Options");
         options = optionsObject.GetComponent<Options>();
         highscoreScript = GameObject.Find("Highscore").GetComponent<Highscore>();
+        ops = GameObject.FindObjectOfType<OptionsScreen>();
         DontDestroyOnLoad(optionsObject);
     }
 
@@ -61,6 +64,8 @@ public class MenuScreen : MonoBehaviour
         optionsScreen.SetActive(false);
         highscoreScreen.SetActive(false);
         aboutScreen.SetActive(false);
+
+        ops.GetSound();
     }
     void Back()
     {

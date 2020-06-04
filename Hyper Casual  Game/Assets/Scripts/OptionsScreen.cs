@@ -18,6 +18,7 @@ public class OptionsScreen : MonoBehaviour
 
     int currentResolutionIndex = 0;
     public bool setup;
+    public bool mute;
 
     private void Start()
     {
@@ -28,22 +29,8 @@ public class OptionsScreen : MonoBehaviour
             setup = true;
         }
     }
-    private void OnDisable()
-    {
-        float masterVolume = 0;
-        float musicVolume = 0;
-        float sfxVolume = 0;
 
-        audioMixer.GetFloat("masterVolume", out masterVolume);
-        audioMixer.GetFloat("musicVolume", out musicVolume);
-        audioMixer.GetFloat("sfxVolume", out sfxVolume);
-
-        PlayerPrefs.SetFloat("masterVolume", masterVolume);
-        PlayerPrefs.SetFloat("musicVolume", musicVolume);
-        PlayerPrefs.SetFloat("sfxVolume", sfxVolume);
-    }
-
-    private void GetResolutions()
+    public void GetResolutions()
     {
         var resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
@@ -66,19 +53,34 @@ public class OptionsScreen : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
     }
-    private void GetSound()
+    public void GetSound()
     {
-        float masterVolume = PlayerPrefs.GetFloat("masterVolume");
-        float musicVolume = PlayerPrefs.GetFloat("musicVolume");
-        float sfxVolume = PlayerPrefs.GetFloat("sfxVolume");
+        float masterVolume = 0;
+        float musicVolume = 0;
+        float sfxVolume = 0;
+
+        mute = PlayerPrefs.GetInt("mute") == 1;
+        masterVolume = PlayerPrefs.GetFloat("masterVolume");
+        musicVolume = PlayerPrefs.GetFloat("musicVolume");
+        sfxVolume = PlayerPrefs.GetFloat("sfxVolume");
+
+        volumeMasterSlider.value = masterVolume;
+        volumeMusicSlider.value = musicVolume;
+        volumeFXSlider.value = sfxVolume;
 
         SetMasterVolume(masterVolume);
         SetMusicVolume(musicVolume);
         SetSfxVolume(sfxVolume);
 
-        volumeMasterSlider.value = masterVolume;
-        volumeMusicSlider.value = musicVolume;
-        volumeFXSlider.value = sfxVolume;
+        if (mute)
+        {
+            muteToggle.isOn = true;
+        }
+        else
+        {
+            muteToggle.isOn = false;
+        }
+
     }
 
     private void Awake()
@@ -102,16 +104,35 @@ public class OptionsScreen : MonoBehaviour
         resolutionDropdown.RefreshShownValue();
     }
 
+    public void MuteChange(bool _mute)
+    {
+        mute = _mute;
+        float volume = 0;
+        volume = volumeMasterSlider.value;
+        SetMasterVolume(volume);
+    }
+
     public void SetMusicVolume(float volume)
     {
+        PlayerPrefs.SetFloat("musicVolume", volume);
         audioMixer.SetFloat("musicVolume", volume);
     }
     public void SetSfxVolume(float volume)
     {
+        PlayerPrefs.SetFloat("sfxVolume", volume);
         audioMixer.SetFloat("sfxVolume", volume);
     }
     public void SetMasterVolume(float volume)
     {
-        audioMixer.SetFloat("masterVolume", volume);
+        if (mute)
+        {
+            PlayerPrefs.SetFloat("masterVolume", volume);
+            audioMixer.SetFloat("masterVolume", -80);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("masterVolume", volume);
+            audioMixer.SetFloat("masterVolume", volume);
+        }
     }
 }

@@ -153,7 +153,6 @@ public class Movement : MonoBehaviour
                 else if (moveDirection.y > 0 && Input.GetButton("Jump") && !(onWall))
                 {
                     moveDirection.y += Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-                    print("Going upwards");
                 }
                 // if spacebar is not pressed and the character moves upwards, gravity is slowing you down just like normal.
                 else

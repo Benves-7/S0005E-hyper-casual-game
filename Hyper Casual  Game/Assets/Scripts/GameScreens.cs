@@ -53,6 +53,8 @@ public class GameScreens : MonoBehaviour
     private Options options;
     private GameObject cam;
 
+    public OptionsScreen ops;
+
 
     private void Awake()
     {
@@ -60,8 +62,8 @@ public class GameScreens : MonoBehaviour
         {
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Movement>();
             map = GameObject.FindGameObjectWithTag("Maploader").GetComponent<MapLoader>();
-            options = GameObject.FindGameObjectWithTag("Options").GetComponent<Options>();
             cam = GameObject.FindGameObjectWithTag("Camera");
+            options = GameObject.FindGameObjectWithTag("Options").GetComponent<Options>();
         }
         catch (System.Exception)
         {
@@ -90,6 +92,8 @@ public class GameScreens : MonoBehaviour
         optionsButton.onClick.AddListener(Options);
         exitButtonPause.onClick.AddListener(Exit);
         backButton.onClick.AddListener(Back);
+
+        ops.GetSound();
     }
 
     private void Update()
