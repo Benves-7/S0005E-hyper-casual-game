@@ -146,6 +146,4 @@ public class MenuScreen : MonoBehaviour
         options.mode = MapLoader.RunMode.proceduralGeneration;
         SceneManager.LoadScene("GameScene");
     }
-
-
 }
